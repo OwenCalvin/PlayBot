@@ -1,0 +1,26 @@
+{
+  "name": "playbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OwenCalvin/PlayBot.git"
+  },
+  "keywords": [
+    "play",
+    "bot"
+  ],
+  "author": "OwenCalvin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OwenCalvin/PlayBot/issues"
+  },
+  "homepage": "https://github.com/OwenCalvin/PlayBot#readme",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  }
+}
