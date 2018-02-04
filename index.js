@@ -4,11 +4,46 @@ const client = new discord.Client()
 let maxValue = 10
 let firstChar = '$'
 let takes = []
+let goodRes = null
 
 client.on('message', msg => {
-  args = msg.content.split(' ');
-  if (args[0].startsWith(firstChar)) {
-    switch(args[0].substr(1).toLowerCase()) {
+  let channelName = msg.channel.name
+  if(channelName[channelName.length - 1] === '-') {
+    msg.delete()
+  }
+
+  msgContent = msg.content.toLowerCase()
+  args = msgContent.split(' ')
+
+  if(args[0].startsWith(firstChar)) {
+    switch(args[0].substr(1)) {
+      case 'q':
+      case 'quizz':
+        goodRes = joinArray(args, 1)
+        break
+
+      case 'a':
+      case 'answer':
+        if(goodRes) {
+          if(goodRes === joinArray(args, 1)) {
+            msg.channel.send('Yes it is !')
+            goodRes = null
+          } else {
+            msg.channel.send('No...')
+          }
+        } else {
+          msg.channel.send('No quizz')
+        }
+        break
+
+      case 'qreset':
+        if(goodRes) {
+            goodRes = null
+        } else {
+          msg.channel.send('No quizz set')
+        }
+        break
+
       case 'p':
       case 'play':
         if(isInteger(args[1]) && isInteger(args[2])) {
@@ -80,10 +115,17 @@ client.on('message', msg => {
         takes = []
         msg.channel.send('The list has been reset')
         break
-
     }
   }
 });
+
+function joinArray(array, index, char = ' ') {
+  let res = ''
+  for(let i = index; i < array.length; i++) {
+    res += array[i] + char
+  }
+  return res
+}
 
 function isInteger(n) {
   return Number.isInteger(parseInt(n))
